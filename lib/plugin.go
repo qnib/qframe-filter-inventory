@@ -34,7 +34,8 @@ func (p *Plugin) Run() {
 	p.Log("info", fmt.Sprintf("Start inventory v%s", p.Version))
 	myId := qutils.GetGID()
 	dc := p.QChan.Data.Join()
-	ticker := time.NewTicker(time.Millisecond * 2500).C
+	tickerTime := p.CfgIntOr("ticker-ms", 2500)
+	ticker := time.NewTicker(time.Millisecond * time.Duration(tickerTime)).C
 	for {
 		select {
 		case val := <-dc.Read:
@@ -61,7 +62,8 @@ func (p *Plugin) Run() {
 			*/
 			}
 		case <- ticker:
-			//p.Inventory.CheckRequests()
+			p.Log("debug", "Ticker came along: p.Inventory.CheckRequests()")
+			p.Inventory.CheckRequests()
 			continue
 		}
 	}

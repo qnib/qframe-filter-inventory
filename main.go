@@ -56,6 +56,7 @@ func main() {
 	cfgMap := map[string]string{
 		"filter.inventory.inputs": "docker-events",
 		"log.level": "debug",
+		"filter.inventory.ticker-ms": "2500",
 	}
 
 	cfg := config.NewConfig(
@@ -74,14 +75,23 @@ func main() {
 	// Start docker-events
 	pde, _ := qframe_collector_docker_events.New(qChan, *cfg, "docker-events")
 	go pde.Run()
-	cntName := fmt.Sprintf("TestCnt%d", time.Now().Unix())
-	go startCnt(engineCli, cntName, 1)
+	cnts := map[int]string{
+		0: fmt.Sprintf("TestCnt1%d", time.Now().Unix()),
+		1: fmt.Sprintf("TestCnt2%d", time.Now().Unix()),
+	}
+	go startCnt(engineCli, cnts[0], 1)
+	time.Sleep(time.Second)
 	// Create Request to Inventory
-	time.Sleep(2*time.Second)
-	req := qframe_inventory.NewNameContainerRequest(cntName)
+	req := qframe_inventory.NewNameContainerRequest(cnts[0])
 	p.Log("debug", fmt.Sprintf("SearcRequest for name %s", req.Name))
 	p.Inventory.ServeRequest(req)
+	req2 := qframe_inventory.NewNameContainerRequest(cnts[1])
+	p.Log("debug", fmt.Sprintf("SearcRequest for name %s", req2.Name))
+	p.Inventory.ServeRequest(req2)
+	// Fire Up second container
+	go startCnt(engineCli, cnts[1], 3)
 	dc := qChan.Data.Join()
+	done := []string{}
 	for {
 		select {
 		case msg := <-dc.Read:
@@ -89,9 +99,17 @@ func main() {
 			if qm.SourceID == myId {
 				continue
 			}
-			fmt.Printf("#### Received message on Data-channel: %s\n", qm.Msg)
-		case <- req.Back:
-			p.Log("debug", "Got response from Reguest")
+			p.Log("debug" , fmt.Sprintf("#### Received message on Data-channel: %s\n", qm.Msg))
+		case res := <- req.Back:
+			p.Log("info", fmt.Sprintf(" SUCCESS > Request: %s (length of PendingPendingRequests: %d)", res.Name, len(p.Inventory.PendingRequests)))
+			done = append(done, res.Name)
+		case res := <- req2.Back:
+			p.Log("info", fmt.Sprintf(" SUCCESS > Request: %s (length of PendingPendingRequests: %d)", res.Name, len(p.Inventory.PendingRequests)))
+			done = append(done, res.Name)
+		}
+		if len(done) == 2 {
+			p.Log("debug", fmt.Sprintf("PendingRequests has length: %d", len(p.Inventory.PendingRequests)))
+			break
 		}
 	}
 
