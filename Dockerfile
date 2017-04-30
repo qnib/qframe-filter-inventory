@@ -11,3 +11,5 @@ FROM qnib/uplain-init
 
 COPY --from=0 /usr/local/src/github.com/qnib/qframe-filter-inventory/qframe-filter-inventory \
      /usr/local/bin/
+ENV SKIP_ENTRYPOINTS=true
+CMD ["qframe-filter-inventory"]
