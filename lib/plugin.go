@@ -55,11 +55,10 @@ func (p *Plugin) Run() {
 				default:
 					p.Log("debug", fmt.Sprintf("Received qm.Data: %s", reflect.TypeOf(qm.Data)))
 				}
-			/*case qframe_inventory.InventoryRequest:
+			case qframe_inventory.ContainerRequest:
 				p.Log("info", "Received InventoryRequest")
-				req := val.(qframe_inventory.InventoryRequest)
-				p.Inventory.HandleRequest(req)
-			*/
+				req := val.(qframe_inventory.ContainerRequest)
+				p.Inventory.ServeRequest(req)
 			}
 		case <- ticker:
 			p.Log("debug", "Ticker came along: p.Inventory.CheckRequests()")

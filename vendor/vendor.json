@@ -45,12 +45,6 @@
 			"revisionTime": "2017-04-24T21:31:22Z"
 		},
 		{
-			"checksumSHA1": "dvabztWVQX8f6oMLRyv4dLH+TGY=",
-			"path": "github.com/davecgh/go-spew/spew",
-			"revision": "346938d642f2ec3594ed81d874461961cd0faa76",
-			"revisionTime": "2016-10-29T20:57:26Z"
-		},
-		{
 			"checksumSHA1": "Gj+xR1VgFKKmFXYOJMnAczC3Znk=",
 			"path": "github.com/docker/distribution/digestset",
 			"revision": "1d7824702bb4763786d35b7553b18722c4afce4f",
@@ -381,12 +375,6 @@
 			"revisionTime": "2017-02-11T01:34:15Z"
 		},
 		{
-			"checksumSHA1": "IFuo53FTd6s+Ci2PKkCW+DH7vqM=",
-			"path": "github.com/moby/moby/api/types",
-			"revision": "4219156a6254bdc7d270f06742037df8e2708a9a",
-			"revisionTime": "2017-04-29T17:05:32Z"
-		},
-		{
 			"checksumSHA1": "qj7IAU2RRq99oaIEGH0eLfX/UcM=",
 			"path": "github.com/opencontainers/go-digest",
 			"revision": "aa2ec055abd10d26d539eb630a92241b781ce4bc",
@@ -411,21 +399,15 @@
 			"revisionTime": "2017-03-16T20:15:38Z"
 		},
 		{
-			"checksumSHA1": "LuFv4/jlrmFNnDb/5SCSEPAM9vU=",
-			"path": "github.com/pmezard/go-difflib/difflib",
-			"revision": "792786c7400a136282c1664665ae0a8db921c6c2",
-			"revisionTime": "2016-01-10T10:55:54Z"
-		},
-		{
-			"checksumSHA1": "TTY8f6JD+b6PtFOhb64dt5UkOEM=",
+			"checksumSHA1": "+DZIAakl0qAlA1dIzJMLa+ygLC8=",
 			"path": "github.com/qnib/qframe-collector-docker-events/lib",
 			"revision": ""
 		},
 		{
-			"checksumSHA1": "fyP3/3XEmGz/0zt5FHb5yXvgJLk=",
+			"checksumSHA1": "OENQW+tgMoOmzVqLbmkI0SJVVP4=",
 			"path": "github.com/qnib/qframe-filter-inventory/lib",
-			"revision": "72deeb7dea032fca4ae4d775bba2b14ef0c3b4a9",
-			"revisionTime": "2017-04-30T16:21:30Z"
+			"revision": "889b60ee5d77b8ae36001084648a1d401fb746be",
+			"revisionTime": "2017-04-30T21:11:57Z"
 		},
 		{
 			"checksumSHA1": "Ib8aEI91q80OYljWyMT2aUmPXRk=",
@@ -433,10 +415,10 @@
 			"revision": ""
 		},
 		{
-			"checksumSHA1": "bhPJxVhowO5CR8o9dnfCszY7qy4=",
+			"checksumSHA1": "U9YiUwJ+B2Dd4D+TIQmtfhdErMc=",
 			"path": "github.com/qnib/qframe-types",
-			"revision": "7ed6008142f7be2742111c2398be730f352d9f8b",
-			"revisionTime": "2017-04-29T15:47:29Z"
+			"revision": "3795784171b3e48f89abdceadd662ba993c0056f",
+			"revisionTime": "2017-04-30T18:28:55Z"
 		},
 		{
 			"checksumSHA1": "cXF2ScH6MC6Y3rijJx6usaA1prY=",
@@ -449,12 +431,6 @@
 			"path": "github.com/satori/go.uuid",
 			"revision": "5bf94b69c6b68ee1b541973bb8e1144db23a194b",
 			"revisionTime": "2017-03-21T23:07:31Z"
-		},
-		{
-			"checksumSHA1": "JXUVA1jky8ZX8w09p2t5KLs97Nc=",
-			"path": "github.com/stretchr/testify/assert",
-			"revision": "4d4bfba8f1d1027c4fdbe371823030df51419987",
-			"revisionTime": "2017-01-30T11:31:45Z"
 		},
 		{
 			"checksumSHA1": "m8hYD/alsufIYIM7sR06wbL+dKo=",

@@ -78,6 +78,7 @@ func main() {
 	cnts := map[int]string{
 		0: fmt.Sprintf("TestCnt1%d", time.Now().Unix()),
 		1: fmt.Sprintf("TestCnt2%d", time.Now().Unix()),
+		2: fmt.Sprintf("TestCnt3%d", time.Now().Unix()),
 	}
 	go startCnt(engineCli, cnts[0], 1)
 	time.Sleep(time.Second)
@@ -88,30 +89,39 @@ func main() {
 	req2 := qframe_inventory.NewNameContainerRequest(cnts[1])
 	p.Log("debug", fmt.Sprintf("SearcRequest for name %s", req2.Name))
 	p.Inventory.ServeRequest(req2)
+	req3 := qframe_inventory.NewNameContainerRequest(cnts[2])
+	p.Log("debug", fmt.Sprintf("SearcRequest for name %s via QChan.Data.Send()", req3.Name))
+	qChan.Data.Send(req3)
 	// Fire Up second container
 	go startCnt(engineCli, cnts[1], 3)
+	go startCnt(engineCli, cnts[2], 5)
 	dc := qChan.Data.Join()
 	done := []string{}
 	for {
 		select {
 		case msg := <-dc.Read:
-			qm := msg.(qtypes.QMsg)
-			if qm.SourceID == myId {
-				continue
+			switch msg.(type) {
+			case qtypes.QMsg:
+				qm := msg.(qtypes.QMsg)
+				if qm.SourceID == myId {
+					continue
+				}
+				p.Log("debug" , fmt.Sprintf("#### Received message on Data-channel: %s\n", qm.Msg))
 			}
-			p.Log("debug" , fmt.Sprintf("#### Received message on Data-channel: %s\n", qm.Msg))
 		case res := <- req.Back:
-			p.Log("info", fmt.Sprintf(" SUCCESS > Request: %s (length of PendingPendingRequests: %d)", res.Name, len(p.Inventory.PendingRequests)))
+			p.Log("info", fmt.Sprintf(" SUCCESS > Request: %s (length of PendingRequests: %d)", res.Name, len(p.Inventory.PendingRequests)))
 			done = append(done, res.Name)
 		case res := <- req2.Back:
-			p.Log("info", fmt.Sprintf(" SUCCESS > Request: %s (length of PendingPendingRequests: %d)", res.Name, len(p.Inventory.PendingRequests)))
+			p.Log("info", fmt.Sprintf(" SUCCESS > Request: %s (length of PendingRequests: %d)", res.Name, len(p.Inventory.PendingRequests)))
+			done = append(done, res.Name)
+		case res := <- req3.Back:
+			p.Log("info", fmt.Sprintf(" SUCCESS > Request: %s (length of PendingRequests: %d)", res.Name, len(p.Inventory.PendingRequests)))
 			done = append(done, res.Name)
 		}
-		if len(done) == 2 {
+		if len(done) == 3 {
 			p.Log("debug", fmt.Sprintf("PendingRequests has length: %d", len(p.Inventory.PendingRequests)))
 			break
 		}
 	}
-
 }
 
