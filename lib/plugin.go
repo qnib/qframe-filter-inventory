@@ -48,7 +48,7 @@ func (p *Plugin) Run() {
 				switch qm.Data.(type) {
 				case qtypes.ContainerEvent:
 					ce := qm.Data.(qtypes.ContainerEvent)
-					p.Log("info", fmt.Sprintf("Received Event: %s.%s",ce.Event.Type, ce.Event.Action))
+					p.Log("debug", fmt.Sprintf("Received Event: %s.%s",ce.Event.Type, ce.Event.Action))
 					if ce.Event.Type == "container" && ce.Event.Action == "start" {
 						p.Inventory.SetItem(ce.Container.ID, ce.Container)
 					}
@@ -56,8 +56,8 @@ func (p *Plugin) Run() {
 					p.Log("debug", fmt.Sprintf("Received qm.Data: %s", reflect.TypeOf(qm.Data)))
 				}
 			case qframe_inventory.ContainerRequest:
-				p.Log("info", "Received InventoryRequest")
 				req := val.(qframe_inventory.ContainerRequest)
+				p.Log("info", fmt.Sprintf("Received InventoryRequest for %v", req))
 				p.Inventory.ServeRequest(req)
 			}
 		case <- ticker:
