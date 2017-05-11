@@ -15,6 +15,7 @@ import (
 const (
 	version = "0.1.1"
 	pluginTyp = qtypes.FILTER
+	pluginPkg = "inventory"
 )
 
 type Plugin struct {
@@ -24,7 +25,7 @@ type Plugin struct {
 
 func New(qChan qtypes.QChan, cfg config.Config, name string) Plugin {
 	return Plugin{
-		Plugin: qtypes.NewNamedPlugin(qChan, cfg, pluginTyp, name, version),
+		Plugin: qtypes.NewNamedPlugin(qChan, cfg, pluginTyp, pluginPkg, name, version),
 		Inventory: qframe_inventory.NewInventory(),
 	}
 }
