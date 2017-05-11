@@ -32,7 +32,7 @@ func New(qChan qtypes.QChan, cfg config.Config, name string) Plugin {
 
 // Run fetches everything from the Data channel and flushes it to stdout
 func (p *Plugin) Run() {
-	p.Log("info", fmt.Sprintf("Start inventory v%s", p.Version))
+	p.Log("notice", fmt.Sprintf("Start inventory v%s", p.Version))
 	myId := qutils.GetGID()
 	dc := p.QChan.Data.Join()
 	tickerTime := p.CfgIntOr("ticker-ms", 2500)
