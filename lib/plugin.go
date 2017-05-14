@@ -4,12 +4,11 @@ import (
 	"C"
 	"fmt"
 	"time"
-	"reflect"
+	"github.com/zpatrick/go-config"
 
 	"github.com/qnib/qframe-types"
 	"github.com/qnib/qframe-utils"
 	"github.com/qnib/qframe-inventory/lib"
-	"github.com/zpatrick/go-config"
 )
 
 const (
@@ -41,20 +40,14 @@ func (p *Plugin) Run() {
 		select {
 		case val := <-dc.Read:
 			switch val.(type) {
-			case qtypes.QMsg:
-				qm := val.(qtypes.QMsg)
-				if qm.SourceID == myId {
+			case qtypes.ContainerEvent:
+				ce := val.(qtypes.ContainerEvent)
+				if ce.SourceID == int(myId) {
 					continue
 				}
-				switch qm.Data.(type) {
-				case qtypes.ContainerEvent:
-					ce := qm.Data.(qtypes.ContainerEvent)
-					p.Log("debug", fmt.Sprintf("Received Event: %s.%s",ce.Event.Type, ce.Event.Action))
-					if ce.Event.Type == "container" && ce.Event.Action == "start" {
-						p.Inventory.SetItem(ce.Container.ID, ce.Container)
-					}
-				default:
-					p.Log("debug", fmt.Sprintf("Received qm.Data: %s", reflect.TypeOf(qm.Data)))
+				p.Log("debug", fmt.Sprintf("Received Event: %s.%s",ce.Event.Type, ce.Event.Action))
+				if ce.Event.Type == "container" && ce.Event.Action == "start" {
+					p.Inventory.SetItem(ce.Container.ID, ce.Container)
 				}
 			case qframe_inventory.ContainerRequest:
 				req := val.(qframe_inventory.ContainerRequest)
