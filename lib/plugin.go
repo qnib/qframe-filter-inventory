@@ -22,7 +22,7 @@ type Plugin struct {
 	Inventory qframe_inventory.Inventory
 }
 
-func New(qChan qtypes.QChan, cfg config.Config, name string) Plugin {
+func New(qChan qtypes.QChan, cfg *config.Config, name string) Plugin {
 	return Plugin{
 		Plugin: qtypes.NewNamedPlugin(qChan, cfg, pluginTyp, pluginPkg, name, version),
 		Inventory: qframe_inventory.NewInventory(),
