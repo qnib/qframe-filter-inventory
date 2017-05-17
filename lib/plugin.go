@@ -22,11 +22,11 @@ type Plugin struct {
 	Inventory qframe_inventory.Inventory
 }
 
-func New(qChan qtypes.QChan, cfg *config.Config, name string) Plugin {
+func New(qChan qtypes.QChan, cfg *config.Config, name string) (Plugin, error) {
 	return Plugin{
 		Plugin: qtypes.NewNamedPlugin(qChan, cfg, pluginTyp, pluginPkg, name, version),
 		Inventory: qframe_inventory.NewInventory(),
-	}
+	}, nil
 }
 
 // Run fetches everything from the Data channel and flushes it to stdout
