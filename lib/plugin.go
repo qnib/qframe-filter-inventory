@@ -45,17 +45,17 @@ func (p *Plugin) Run() {
 				if ce.SourceID == int(myId) {
 					continue
 				}
-				p.Log("debug", fmt.Sprintf("Received Event: %s.%s",ce.Event.Type, ce.Event.Action))
+				p.Log("trace", fmt.Sprintf("Received Event: %s.%s",ce.Event.Type, ce.Event.Action))
 				if ce.Event.Type == "container" && ce.Event.Action == "start" {
 					p.Inventory.SetItem(ce.Container.ID, ce.Container)
 				}
 			case qframe_inventory.ContainerRequest:
 				req := val.(qframe_inventory.ContainerRequest)
-				p.Log("info", fmt.Sprintf("Received InventoryRequest for %v", req))
+				p.Log("trace", fmt.Sprintf("Received InventoryRequest for %v", req))
 				p.Inventory.ServeRequest(req)
 			}
 		case <- ticker:
-			p.Log("debug", "Ticker came along: p.Inventory.CheckRequests()")
+			p.Log("trace", "Ticker came along: p.Inventory.CheckRequests()")
 			p.Inventory.CheckRequests()
 			continue
 		}
