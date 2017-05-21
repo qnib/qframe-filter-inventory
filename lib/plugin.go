@@ -42,7 +42,7 @@ func (p *Plugin) Run() {
 			switch val.(type) {
 			case qtypes.ContainerEvent:
 				ce := val.(qtypes.ContainerEvent)
-				if ce.SourceID == int(myId) {
+				if ce.SourceID == myId {
 					continue
 				}
 				p.Log("trace", fmt.Sprintf("Received Event: %s.%s",ce.Event.Type, ce.Event.Action))
