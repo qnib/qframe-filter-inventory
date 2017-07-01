@@ -387,10 +387,10 @@
 			"revisionTime": "2017-04-28T21:26:12Z"
 		},
 		{
-			"checksumSHA1": "MA07KaAp1aPVheuopyrFr7pxANs=",
+			"checksumSHA1": "/PJutIUkV4HNUeZ6vbZLgv3cdr0=",
 			"path": "github.com/opencontainers/runc/libcontainer/user",
-			"revision": "efb2bc3fb0e36b2ec0d2c44b460bfc33a26a0bef",
-			"revisionTime": "2017-04-28T21:26:12Z"
+			"revision": "7139b61f7fdb904d0acb8db825709aa8d2d2ef36",
+			"revisionTime": "2017-06-30T15:08:21Z"
 		},
 		{
 			"checksumSHA1": "ynJSWoF6v+3zMnh9R0QmmG6iGV8=",
