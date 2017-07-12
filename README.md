@@ -1,7 +1,7 @@
 # qframe-filter-inventory
 Qframe filter which keeps an inventory and can be queried by other plugins.
 
-**Depreciated!** Moved to [qframe/filter-inventory](https://github.com/qframe/filter-inventory)
+**Depreciated!** Moved to [qframe/cache-inventory](https://github.com/qframe/cache-inventory)
 
 ## Prebuild Docker Image
 
