@@ -1,6 +1,8 @@
 # qframe-filter-inventory
 Qframe filter which keeps an inventory and can be queried by other plugins.
 
+**Depreciated!** Moved to [qframe/filter-inventory](https://github.com/qframe/filter-inventory)
+
 ## Prebuild Docker Image
 
 The inventory filter listens for messages from the [`docker-events` plugin](https://github.com/qnib/qframe-collector-docker-events) and holds an inventory of all containers (of the engine reachable by `/var/run/docker.sock`)
